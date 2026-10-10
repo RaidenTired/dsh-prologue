@@ -1,0 +1,21 @@
+# 本机状态 / 构建产物：不要提交
+ui-settings.json
+bin/
+*.log
+
+# 依赖与缓存
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.bak
+*~

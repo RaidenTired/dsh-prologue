@@ -1,0 +1,4 @@
+# dsh-prologue — runs the compiled dsh-rust binary as host tools.
+- insert:
+    - id: dsh-prologue
+      name: dsh-prologue
