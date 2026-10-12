@@ -1,51 +1,23 @@
-﻿{
-    "name":  "dsh-prologue",
-    "version":  "1.0.0",
-    "description":  "Runs the dsh-rust engine (deepseek-harness-rust-optimize) as DSH tools: one-shot exec, doctor, help, and the startup (boot) animation with full settings and an in-app immersive preview embedded in the DSH settings page.",
-    "type":  "module",
-    "main":  "lib/index.js",
-    "exports":  {
-                    ".":  "./lib/index.js",
-                    "./client":  "./lib/client.js",
-                    "./package.json":  "./package.json"
-                },
-    "license":  "MIT",
-    "dsh":  {
-                "bundle":  {
-                               "patch":  "./cordis.patch.yml"
-                           },
-                "client":  {
-                               "platform":  "web",
-                               "inject":  [
-
-                                          ],
-                               "immediately":  true
-                           }
-            },
-    "keywords":  [
-                     "dsh",
-                     "dsh-desktop",
-                     "cordis",
-                     "plugin",
-                     "startup-animation",
-                     "boot-animation",
-                     "prologue"
-                 ],
-    "repository":  {
-                       "type":  "git",
-                       "url":  "https://github.com/RaidenTired/dsh-prologue.git"
-                   },
-    "bugs":  {
-                 "url":  "https://github.com/RaidenTired/dsh-prologue/issues"
-             },
-    "author":  "RaidenTired",
-    "files":  [
-                  "lib/",
-                  "startup-assets/",
-                  "config.toml",
-                  "runtime-config.toml",
-                  "cordis.patch.yml",
-                  "README.md",
-                  "LICENSE"
-              ]
+{
+  "name": "dsh-prologue",
+  "version": "1.0.0",
+  "description": "Runs the dsh-rust engine (deepseek-harness-rust-optimize) as DSH tools: one-shot exec, doctor, help, and the startup (boot) animation with full settings and an in-app immersive preview embedded in the DSH settings page.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [],
+      "immediately": true
+    }
+  }
 }
