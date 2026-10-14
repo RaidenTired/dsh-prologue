@@ -359,3 +359,39 @@ restart DSH Desktop. The `dsh_rust_*` tools additionally need a local `dsh-rust`
 `<plugin>\bin\dsh.exe` (not bundled).
 
 **License** — MIT. Third-party assets: Noto Sans SC (OFL-1.1), RhineLabUI (MIT).
+
+---
+
+## 在新版 DSH 上安装与更新（0.1.6+ / dshmarket）
+
+从 **DSH 0.1.6/0.1.7**（配合 `dshmarket`）开始，插件不再直接从 `harness\plugins\<name>` 运行：
+插件管理器会把插件**物化一份独立拷贝**到
+
+```
+%APPDATA%\dsh-desktop\harness\profiles\.generations\live\<name>+<version>+<hash>\node_modules\<name>\
+```
+
+并在 `profiles\.generations\desired.json` 里登记该目录名（一个字符串数组）。
+由此产生两条重要结论：
+
+1. **改源目录不会自动生效** —— 运行的是代目录里的那份拷贝；更新流程是
+   「改源目录 → 让管理器重新物化（在插件管理器里点『重新安装/更新』）」，或临时直接把改好的文件同步进 live 代目录（即时生效，但属于旁路操作）。
+2. **代目录名里的 hash 与内容相关** —— 手改代目录内容不会更新该 hash；下次管理器重建时会以源目录内容为准。
+
+### 与 0.1.7 的 API 兼容
+
+| 项目 | 状态 |
+|---|---|
+| `ctx.settings.register()` | **本插件未使用** ✓（0.1.7 已移除该 API，改为由插件 Config schema 派生设置）|
+| 插件 Config schema | **已定义** ✓（`Config(...)` + `z.object(...)`）—— 正是 0.1.7 期望的方式 |
+| `ctx.tools.register` / `ctx.webServer.register` | 仍在 0.1.7 提供 ✓，本插件正常使用 |
+| 插件清单 `dsh` 块 | `bundle.patch` + `client{platform,inject,immediately}` 仍被 0.1.7 接受 ✓ |
+
+### 更新本插件（推荐流程）
+
+1. 用新代码替换 `harness\plugins\<name>\` 里的文件；
+2. 打开 **插件管理器 / 市场** → 找到本插件 → **重新安装/更新**（等价于重新物化代目录）；
+3. 完全重启 DSH Desktop；
+4. 自检：`harness\profiles\.generations\live\<name>+<ver>+<hash>\node_modules\<name>\lib\index.js` 应与源目录一致（可用文件哈希比对）。
+
+> 排查提示：若日志反复出现 `patch: entry "<name>" not found`，说明 `profiles\<profile>\cordis.patch.yml` 里有一条指向该 id 的补丁条目，而该插件并未登记到该 profile —— 删除那条条目即可。
