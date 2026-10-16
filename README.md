@@ -5,6 +5,7 @@
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![plugin](https://img.shields.io/badge/DSH-Desktop%20Plugin-111)
 ![platform](https://img.shields.io/badge/platform-Windows-0078d4)
+![release](https://img.shields.io/github/v/release/RaidenTired/dsh-prologue)
 
 ---
 
