@@ -395,3 +395,22 @@ restart DSH Desktop. The `dsh_rust_*` tools additionally need a local `dsh-rust`
 4. 自检：`harness\profiles\.generations\live\<name>+<ver>+<hash>\node_modules\<name>\lib\index.js` 应与源目录一致（可用文件哈希比对）。
 
 > 排查提示：若日志反复出现 `patch: entry "<name>" not found`，说明 `profiles\<profile>\cordis.patch.yml` 里有一条指向该 id 的补丁条目，而该插件并未登记到该 profile —— 删除那条条目即可。
+
+---
+
+## 开机动画的运行时依赖（重要）
+
+演出页面由本插件**自己**提供（`startup-assets/`），但**数据与代理**来自本机
+`dsh-rust`（即 `dsh` / `bin\dsh.exe`）：宿主在收到 `/preview` 请求时会尝试
+启动 `dsh startup web` 并把请求代理过去。
+
+因此：
+
+| 本机是否有 `dsh-rust` | 结果 |
+|---|---|
+| **有** | 工具 + 设置页 + **完整开机动画** 全部可用 |
+| **没有** | 工具不可用；设置页可用；**开机动画不会播放**（宿主拿不到 embedUrl，加载层按"失败即放行"直接跳过） |
+
+> 发布包**不含** `bin/dsh.exe`。要看到开机动画，请先让本机具备 `dsh-rust`：
+> 把它放到 `<插件目录>\bin\dsh.exe`，或确保 `dsh` 在 `PATH` 中。
+> 安装后**必须完全重启 DSH Desktop**。
